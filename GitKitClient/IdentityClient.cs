@@ -1,6 +1,4 @@
 ﻿using System.Collections.Specialized;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 using GitKitClient.Requests;
 using GitKitClient.Responses;
 using Newtonsoft.Json;
@@ -24,22 +22,7 @@ namespace GitKitClient
             _helper = new RpcHelper(accessToken, "https://www.googleapis.com/identitytoolkit/v3/relyingparty");
         }
 
-        //public IdentityClient(string serviceAccountEmail, string serviceAccountKey, string serverApiKey, string apiUrl)
-        //{
-        //    _serviceAccountEmail = serviceAccountEmail;
-        //    _helper = new RpcHelper(serviceAccountEmail, serviceAccountKey, serverApiKey, apiUrl);
-        //}
-
-        public string GetAccountInfoByEmail(string email)
-        {
-            var response = _helper.InvokeApi("getAccountinfo", new NameValueCollection()
-            {
-                {"email", email}
-            });
-
-            return response;
-        }
-
+       
         /// <summary>
         /// Batch download user accounts.
         /// </summary>
@@ -99,6 +82,24 @@ namespace GitKitClient
         {
             var response = _helper.InvokeApi("setAccountInfo", request);
             return JsonConvert.DeserializeObject<SetAccountInfoResponse>(response);
+        }
+
+        public UploadAccountResponse UploadAccount(UploadAccountRequest request)
+        {
+            var response = _helper.InvokeApi("uploadAccount", request);
+            return JsonConvert.DeserializeObject<UploadAccountResponse>(response);
+        }
+
+        public VerifyAssertionResponse VerifyAssertion(VerifyAssertionRequest request)
+        {
+            var response = _helper.InvokeApi("verifyAssertion", request);
+            return JsonConvert.DeserializeObject<VerifyAssertionResponse>(response);
+        }
+
+        public VerifyPasswordResponse VerifyPassword(VerifyPasswordRequest request)
+        {
+            var response = _helper.InvokeApi("verifyPassword", request);
+            return JsonConvert.DeserializeObject<VerifyPasswordResponse>(response);
         }
 
         public string GetPublicKeys(string apiKey)

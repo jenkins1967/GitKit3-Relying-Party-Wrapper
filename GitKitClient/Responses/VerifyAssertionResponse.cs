@@ -27,4 +27,14 @@
         public string[] VerifiedProvider { get; set; }
         public bool NeedConfirmation { get; set; }
     }
+
+    public class VerifyPasswordResponse : BaseResponse<VerifyPasswordResponse>
+    {
+        public string LocalId { get; set; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
+        public string IdToken { get; set; }
+        public bool Registered { get; set; }
+
+    }
 }
